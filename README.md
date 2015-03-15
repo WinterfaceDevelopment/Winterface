@@ -29,7 +29,7 @@ Requires `freenet` and `freenet-ext`. As these are not currently available in Ma
 after [downloading](https://downloads.freenetproject.org/alpha/freenet-build01465.jar)
 [them](https://downloads.freenetproject.org/alpha/freenet-ext.jar) or building them from source, install them:
 
-    mvn install:install-file -Dfile=freenet.jar -DgroupId=org.freenetproject -DartifactId=fred -Dversion=0.7.5.1465 -Dpackaging=jar
+    mvn install:install-file -Dfile=freenet.jar -DgroupId=org.freenetproject -DartifactId=fred -Dversion=0.7.5.1467 -Dpackaging=jar
     mvn install:install-file -Dfile=freenet-ext.jar -DgroupId=org.freenetproject -DartifactId=freenet-ext -Dversion=29 -Dpackaging=jar
 
 # Building
