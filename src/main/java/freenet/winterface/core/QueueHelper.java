@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import freenet.client.FetchException;
+import freenet.client.FetchException.FetchExceptionMode;
 import freenet.client.async.PersistenceDisabledException;
 import freenet.client.filter.ContentFilter;
 import freenet.client.filter.FilterMIMEType;
@@ -218,12 +219,12 @@ public class QueueHelper {
 					addToList(download, DL_C_TEMP);
 				}
 			} else if (download.hasFinished() && isDesired(DL_F)) {
-				int failureCode = download.getFailureCode();
-				if (failureCode == FetchException.CONTENT_VALIDATION_UNKNOWN_MIME) {
+				FetchExceptionMode failureCode = download.getFailureCode();
+				if (failureCode == FetchExceptionMode.CONTENT_VALIDATION_UNKNOWN_MIME) {
 					String mimeType = download.getMIMEType();
 					mimeType = ContentFilter.stripMIMEType(mimeType);
 					addToMap(download, mimeType, DL_F_U_MIME);
-				} else if (failureCode == FetchException.CONTENT_VALIDATION_BAD_MIME) {
+				} else if (failureCode == FetchExceptionMode.CONTENT_VALIDATION_BAD_MIME) {
 					String mimeType = download.getMIMEType();
 					mimeType = ContentFilter.stripMIMEType(mimeType);
 					FilterMIMEType type = ContentFilter.getMIMEType(mimeType);

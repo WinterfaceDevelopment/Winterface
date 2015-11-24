@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import freenet.client.FetchException;
+import freenet.client.FetchException.FetchExceptionMode;
 import freenet.client.FetchResult;
 import freenet.keys.FreenetURI;
 import freenet.support.api.Bucket;
@@ -56,7 +57,7 @@ public class Root extends HttpServlet {
 				response.sendRedirect(getRoutes().getPathForErrorPage(e, localPath));
 			} catch (FetchException e) {
 				// USK key has been updated, redirect to the new URI
-				if (e.getMode() == FetchException.PERMANENT_REDIRECT) {
+				if (e.getMode() == FetchExceptionMode.PERMANENT_REDIRECT) {
 					String newURI = "/".concat(e.newURI.toString());
 					response.sendRedirect(newURI);
 				} else {
