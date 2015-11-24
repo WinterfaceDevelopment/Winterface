@@ -18,11 +18,11 @@ import freenet.client.async.DatabaseDisabledException;
 import freenet.client.filter.ContentFilter;
 import freenet.client.filter.FilterMIMEType;
 import freenet.node.RequestStarter;
-import freenet.node.fcp.DownloadRequestStatus;
-import freenet.node.fcp.FCPServer;
-import freenet.node.fcp.RequestStatus;
-import freenet.node.fcp.UploadDirRequestStatus;
-import freenet.node.fcp.UploadFileRequestStatus;
+import freenet.clients.fcp.DownloadRequestStatus;
+import freenet.clients.fcp.FCPServer;
+import freenet.clients.fcp.RequestStatus;
+import freenet.clients.fcp.UploadDirRequestStatus;
+import freenet.clients.fcp.UploadFileRequestStatus;
 
 /**
  * A util class which reads all the global requests from {@link FCPServer} (see

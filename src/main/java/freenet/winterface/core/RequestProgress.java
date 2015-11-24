@@ -1,7 +1,7 @@
 package freenet.winterface.core;
 
-import freenet.node.fcp.ClientPut.COMPRESS_STATE;
-import freenet.node.fcp.RequestStatus;
+import freenet.clients.fcp.ClientPut.COMPRESS_STATE;
+import freenet.clients.fcp.RequestStatus;
 
 /**
  * A Wrapper class which calculates the progress of a {@link RequestStatus}
