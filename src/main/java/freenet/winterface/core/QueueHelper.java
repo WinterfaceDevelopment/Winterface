@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import freenet.client.FetchException;
-import freenet.client.async.DatabaseDisabledException;
+import freenet.client.async.PersistenceDisabledException;
 import freenet.client.filter.ContentFilter;
 import freenet.client.filter.FilterMIMEType;
 import freenet.node.RequestStarter;
@@ -157,10 +157,10 @@ public class QueueHelper {
 	 *            class of requested queues
 	 * @param fcpServer
 	 *            used to query global requests.
-	 * @throws DatabaseDisabledException
-	 *             is thrown if database is disabled
+	 * @throws PersistenceDisabledException
+	 *            is thrown if persistence is disabled
 	 */
-	public QueueHelper(int requestedClass, FCPServer fcpServer) throws DatabaseDisabledException {
+	public QueueHelper(int requestedClass, FCPServer fcpServer) throws PersistenceDisabledException {
 		requestsBackingMap = Maps.newHashMap();
 		dl_f_b_mimeBackingMap = Maps.newHashMap();
 		dl_f_u_mimeBackingMap = Maps.newHashMap();
