@@ -168,7 +168,7 @@ public class QueueHelper {
 		queueSize = 0;
 		logger.debug("Getting request queue for code " + Integer.toBinaryString(requestedClass));
 		this.requestedClass = requestedClass;
-		this.lowestQueuedPriority = RequestStarter.MINIMUM_PRIORITY_CLASS;
+		this.lowestQueuedPriority = RequestStarter.PAUSED_PRIORITY_CLASS;
 		fcp = fcpServer;
 		RequestStatus[] globalRequests;
 		globalRequests = fcp.getGlobalRequests();
