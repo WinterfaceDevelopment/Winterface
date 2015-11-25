@@ -11,8 +11,6 @@ import freenet.node.NodeClientCore;
 import freenet.node.RequestClient;
 import freenet.node.RequestStarter;
 
-import com.db4o.ObjectContainer; // TODO remove after purge-db4o
-
 /**
  * Fetch URIs through a {@link HighLevelSimpleClient} instance with interactive realtime priority.
  *
@@ -26,10 +24,7 @@ public class InteractiveHLSCFreenetURIFetcher implements FreenetURIFetcher {
         public boolean persistent() {
             return false;
         }
-        @Override
-        public void removeFrom(ObjectContainer container) { // TODO remove after purge-db4o
-            throw new UnsupportedOperationException();
-        }
+
         @Override
         public boolean realTimeFlag() {
             return REQUEST_REALTIME;
@@ -76,10 +71,10 @@ public class InteractiveHLSCFreenetURIFetcher implements FreenetURIFetcher {
     
     private FetchResult internalFetchURI(FreenetURI uri, boolean filterData)
             throws FetchException {
-        FetchWaiter waiter = new FetchWaiter();
+        FetchWaiter waiter = new FetchWaiter(REQUEST_CLIENT);
         FetchContext ctx = client.getFetchContext();
         ctx.filterData = filterData;
-        client.fetch(uri, REQUEST_CLIENT, waiter, ctx, REQUEST_PRIORITY);
+        client.fetch(uri, waiter, ctx, REQUEST_PRIORITY);
         return waiter.waitForCompletion();
     }
 }

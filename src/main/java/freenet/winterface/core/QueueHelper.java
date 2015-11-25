@@ -14,15 +14,16 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import freenet.client.FetchException;
-import freenet.client.async.DatabaseDisabledException;
+import freenet.client.FetchException.FetchExceptionMode;
+import freenet.client.async.PersistenceDisabledException;
 import freenet.client.filter.ContentFilter;
 import freenet.client.filter.FilterMIMEType;
 import freenet.node.RequestStarter;
-import freenet.node.fcp.DownloadRequestStatus;
-import freenet.node.fcp.FCPServer;
-import freenet.node.fcp.RequestStatus;
-import freenet.node.fcp.UploadDirRequestStatus;
-import freenet.node.fcp.UploadFileRequestStatus;
+import freenet.clients.fcp.DownloadRequestStatus;
+import freenet.clients.fcp.FCPServer;
+import freenet.clients.fcp.RequestStatus;
+import freenet.clients.fcp.UploadDirRequestStatus;
+import freenet.clients.fcp.UploadFileRequestStatus;
 
 /**
  * A util class which reads all the global requests from {@link FCPServer} (see
@@ -157,17 +158,17 @@ public class QueueHelper {
 	 *            class of requested queues
 	 * @param fcpServer
 	 *            used to query global requests.
-	 * @throws DatabaseDisabledException
-	 *             is thrown if database is disabled
+	 * @throws PersistenceDisabledException
+	 *            is thrown if persistence is disabled
 	 */
-	public QueueHelper(int requestedClass, FCPServer fcpServer) throws DatabaseDisabledException {
+	public QueueHelper(int requestedClass, FCPServer fcpServer) throws PersistenceDisabledException {
 		requestsBackingMap = Maps.newHashMap();
 		dl_f_b_mimeBackingMap = Maps.newHashMap();
 		dl_f_u_mimeBackingMap = Maps.newHashMap();
 		queueSize = 0;
 		logger.debug("Getting request queue for code " + Integer.toBinaryString(requestedClass));
 		this.requestedClass = requestedClass;
-		this.lowestQueuedPriority = RequestStarter.MINIMUM_PRIORITY_CLASS;
+		this.lowestQueuedPriority = RequestStarter.PAUSED_PRIORITY_CLASS;
 		fcp = fcpServer;
 		RequestStatus[] globalRequests;
 		globalRequests = fcp.getGlobalRequests();
@@ -218,12 +219,12 @@ public class QueueHelper {
 					addToList(download, DL_C_TEMP);
 				}
 			} else if (download.hasFinished() && isDesired(DL_F)) {
-				int failureCode = download.getFailureCode();
-				if (failureCode == FetchException.CONTENT_VALIDATION_UNKNOWN_MIME) {
+				FetchExceptionMode failureCode = download.getFailureCode();
+				if (failureCode == FetchExceptionMode.CONTENT_VALIDATION_UNKNOWN_MIME) {
 					String mimeType = download.getMIMEType();
 					mimeType = ContentFilter.stripMIMEType(mimeType);
 					addToMap(download, mimeType, DL_F_U_MIME);
-				} else if (failureCode == FetchException.CONTENT_VALIDATION_BAD_MIME) {
+				} else if (failureCode == FetchExceptionMode.CONTENT_VALIDATION_BAD_MIME) {
 					String mimeType = download.getMIMEType();
 					mimeType = ContentFilter.stripMIMEType(mimeType);
 					FilterMIMEType type = ContentFilter.getMIMEType(mimeType);

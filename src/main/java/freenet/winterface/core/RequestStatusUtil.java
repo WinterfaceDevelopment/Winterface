@@ -5,12 +5,12 @@ import java.io.File;
 import org.apache.log4j.Logger;
 
 import freenet.keys.FreenetURI;
-import freenet.node.fcp.ClientPut.COMPRESS_STATE;
-import freenet.node.fcp.DownloadRequestStatus;
-import freenet.node.fcp.RequestStatus;
-import freenet.node.fcp.UploadDirRequestStatus;
-import freenet.node.fcp.UploadFileRequestStatus;
-import freenet.node.fcp.UploadRequestStatus;
+import freenet.clients.fcp.ClientPut.COMPRESS_STATE;
+import freenet.clients.fcp.DownloadRequestStatus;
+import freenet.clients.fcp.RequestStatus;
+import freenet.clients.fcp.UploadDirRequestStatus;
+import freenet.clients.fcp.UploadFileRequestStatus;
+import freenet.clients.fcp.UploadRequestStatus;
 import freenet.support.SizeUtil;
 import freenet.support.TimeUtil;
 
